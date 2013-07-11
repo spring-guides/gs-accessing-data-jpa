@@ -14,7 +14,7 @@ public class Customer {
     private String firstName;
     private String lastName;
 
-    public Customer() {}
+    private Customer() {}
 
     public Customer(String firstName, String lastName) {
         this.firstName = firstName;

@@ -19,38 +19,10 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableJpaRepositories("hello")
-@EnableTransactionManagement
+@EnableJpaRepositories
 public class Application {
-
-    public static void main(String[] args) {
-        AbstractApplicationContext context = new AnnotationConfigApplicationContext(Application.class);
-        CustomerRepository repository = context.getBean(CustomerRepository.class);
-        
-        // save a couple of customers
-        repository.save(new Customer("Chuck", "Wagon"));
-        repository.save(new Customer("Art", "Names"));
-        
-        // fetch all customers
-        List<Customer> customers = repository.findAll();
-        System.out.println("Customers found with findAll():");
-        System.out.println("-------------------------------");
-        for (Customer customer : customers) {
-            System.out.println(customer);
-        }
-        System.out.println();
-        
-        // fetch an individual customer
-        Customer customer = repository.findOne(1L);
-        System.out.println("Customer found with findOne(1L):");
-        System.out.println("--------------------------------");
-        System.out.println(customer);
-        
-        context.close();
-    }
     
     @Bean
     public DataSource dataSource() {
@@ -78,6 +50,45 @@ public class Application {
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
+    }
+
+
+    public static void main(String[] args) {
+        AbstractApplicationContext context = new AnnotationConfigApplicationContext(Application.class);
+        CustomerRepository repository = context.getBean(CustomerRepository.class);
+        
+        // save a couple of customers
+        repository.save(new Customer("Jack", "Bauer"));
+        repository.save(new Customer("Chloe", "O'Brian"));
+        repository.save(new Customer("Kim", "Bauer"));
+        repository.save(new Customer("David", "Palmer"));
+        repository.save(new Customer("Michelle", "Dessler"));
+        
+        // fetch all customers
+        List<Customer> customers = repository.findAll();
+        System.out.println("Customers found with findAll():");
+        System.out.println("-------------------------------");
+        for (Customer customer : customers) {
+            System.out.println(customer);
+        }
+        System.out.println();
+        
+        // fetch an individual customer by ID
+        Customer customer = repository.findOne(1L);
+        System.out.println("Customer found with findOne(1L):");
+        System.out.println("--------------------------------");
+        System.out.println(customer);
+        System.out.println();
+        
+        // fetch customers by last name
+        List<Customer> bauers = repository.findByLastName("Bauer");
+        System.out.println("Customer found with findByLastName('Bauer'):");
+        System.out.println("--------------------------------------------");
+        for (Customer bauer : bauers) {
+            System.out.println(bauer);
+        }
+        
+        context.close();
     }
 
 }
