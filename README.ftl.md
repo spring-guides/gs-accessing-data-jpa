@@ -58,7 +58,7 @@ To see how this works, create a repository interface that works with `Customer` 
 
     <@snippet path="src/main/java/hello/CustomerRepository.java" prefix="complete"/>
     
-`CustomerRepository` extends the `JpaRepository` interface. The type of entity and ID that it works with (`Customer` and `Long) are specified in the generic parameters on `JpaRepository`. By extending `JpaRepository`, `CustomerRepository` inherits several methods for working with `Customer` persistence, including methods for saving, deleting, and finding `Customer` entities.
+`CustomerRepository` extends the `JpaRepository` interface. The type of entity and ID that it works with (`Customer` and `Long`) are specified in the generic parameters on `JpaRepository`. By extending `JpaRepository`, `CustomerRepository` inherits several methods for working with `Customer` persistence, including methods for saving, deleting, and finding `Customer` entities.
 
 Spring Data JPA also allows you to define other query methods by simply declaring their method signature. In the case of `CustomerRepository`, this is shown with a `findByLastName()` method.
 
@@ -91,7 +91,7 @@ Run your service with `java -jar` at the command line:
 
     java -jar target/${project_id}-0.1.0.jar
     
-You should see something like this (with other stuff like queries as well):
+You should see something like this:
 ```
 Customers found with findAll():
 -------------------------------
