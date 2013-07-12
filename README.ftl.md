@@ -83,7 +83,7 @@ Most of the content in `Application` just sets up several beans to support Sprin
 
 Finally, `Application` includes a `main()` method that puts the `CustomerRepository` through a few tests. First, it fetches the `CustomerRepository` from the Spring application context. Then it saves a handful of `Customer` objects, demonstrating the `save()` method and setting up some data to work with. Next, it calls `findAll()` to fetch all `Customer` objects from the database. Then it calls `findOne()` to fetch a single `Customer` by its ID. Finally, it calls `findByLastName()` to find all customers whose last name is "Bauer".
 
-## <@build_the_application/>
+## <@build_an_executable_jar/>
     
 <@run_the_application/>
     
