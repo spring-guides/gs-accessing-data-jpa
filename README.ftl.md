@@ -85,11 +85,7 @@ Finally, `Application` includes a `main()` method that puts the `CustomerReposit
 
 ## <@build_the_application/>
     
-Run the application
------------------------
-Run your service with `java -jar` at the command line:
-
-    java -jar target/${project_id}-0.1.0.jar
+<@run_the_application/>
     
 You should see something like this:
 ```

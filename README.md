@@ -397,10 +397,12 @@ Now run the following to produce a single executable JAR file containing all nec
 [maven-shade-plugin]: https://maven.apache.org/plugins/maven-shade-plugin
     
 Run the application
------------------------
-Run your service with `java -jar` at the command line:
+-------------------
+Run your application with `java -jar` at the command line:
 
     java -jar target/gs-accessing-data-jpa-0.1.0.jar
+
+
     
 You should see something like this:
 ```
