@@ -38,11 +38,11 @@ In this example, you store Customer objects, annotated as a JPA entity.
 
     <@snippet path="src/main/java/hello/Customer.java" prefix="complete"/>
 
-Here you have a `Customer` class with three attributes, the the `id`, the `firstName`, and the `lastName`. You also have two constructors. The default constructor only exists for the sake of JPA. You won't use it directly, so it is designated as `private`. The other constructor is the one you'll use to create instances of `Customer` to be saved to the database.
+Here you have a `Customer` class with three attributes, the `id`, the `firstName`, and the `lastName`. You also have two constructors. The default constructor only exists for the sake of JPA. You won't use it directly, so it is designated as `private`. The other constructor is the one you'll use to create instances of `Customer` to be saved to the database.
 
 > Note: In this guide, the typical getters and setters have been left out for brevity.
 
-This class is annotated with `@Entity`, indicating that it is a JPA entity. For lack of a `@Table` annotation, it is assumed that this entity will be mapped to a table named `Customer`.
+The `Customer` class is annotated with `@Entity`, indicating that it is a JPA entity. For lack of a `@Table` annotation, it is assumed that this entity will be mapped to a table named `Customer`.
 
 The `Customer`'s `id` property is annotated with `@Id` so that JPA will recognize it as the object's ID. The `id` property is also annotated with `@GeneratedValue` to indicate that the ID should be generated automatically.
 
@@ -52,38 +52,68 @@ The convenient `toString()` method will print out the customer's properties.
 
 Create simple queries
 ----------------------------
-Spring Data JPA focuses on storing data in a relational database using JPA. It's most compelling feature is the ability to automatically create repository implementations, at runtime, from a repository interface.
+Spring Data JPA focuses on using JPA to store data in a relational database. Its most compelling feature is the ability to create repository implementations automatically, at runtime, from a repository interface.
 
 To see how this works, create a repository interface that works with `Customer` entities:
 
     <@snippet path="src/main/java/hello/CustomerRepository.java" prefix="complete"/>
     
-`CustomerRepository` extends the `JpaRepository` interface. The type of entity and ID that it works with (`Customer` and `Long`) are specified in the generic parameters on `JpaRepository`. By extending `JpaRepository`, `CustomerRepository` inherits several methods for working with `Customer` persistence, including methods for saving, deleting, and finding `Customer` entities.
+`CustomerRepository` extends the `JpaRepository` interface. The type of entity and ID that it works with,`Customer` and `Long`, are specified in the generic parameters on `JpaRepository`. By extending `JpaRepository`, `CustomerRepository` inherits several methods for working with `Customer` persistence, including methods for saving, deleting, and finding `Customer` entities.
 
 Spring Data JPA also allows you to define other query methods by simply declaring their method signature. In the case of `CustomerRepository`, this is shown with a `findByLastName()` method.
 
-In a typical Java application, you'd expect to write a class that implements `CustomerRepository`. But that's what makes Spring Data JPA so powerful: You don't have to write an implementation of the repository interface. Spring Data JPA will create an implementation on the fly when you run the application.
+In a typical Java application, you'd expect to write a class that implements `CustomerRepository`. But that's what makes Spring Data JPA so powerful: You don't have to write an implementation of the repository interface. Spring Data JPA creates an implementation on the fly when you run the application.
 
 Let's wire this up and see what it looks like!
 
-Create an application class
+Create an Application class
 ---------------------------
 Here you create an Application class with all the components.
 
     <@snippet path="src/main/java/hello/Application.java" prefix="complete"/>
 
-In the configuration, you need to add the `@EnableJpaRepositories` annotation. This tells Spring Data JPA that it should seek out any interface that extends `org.springframework.data.repository.Repository` and to automatically generate an implementation. By extending `JpaRepository`, your `CustomerRepository` interface transitively extends `Repository`. Therefore, Spring Data JPA will find it and create an implementation for you.
+In the configuration, you need to add the `@EnableJpaRepositories` annotation. This annotation tells Spring Data JPA that it should seek out any interface that extends `org.springframework.data.repository.Repository` and automatically generate an implementation. By extending `JpaRepository`, your `CustomerRepository` interface transitively extends `Repository`. Therefore, Spring Data JPA will find it and create an implementation for you.
 
-Most of the content in `Application` just sets up several beans to support Spring Data JPA and the sample: 
+Most of the content in `Application` sets up several beans to support Spring Data JPA and the sample: 
 
- * The `dataSource()` method defines a `DataSource` bean, as an embedded database for the objects to be persisted to. 
- * The `entityManagerFactory()` method defines a `LocalContainerEntityManagerFactoryBean` that will ultimately be used to create an `EntityManagerFactory` through which JPA operations will be performed. Note that its `packagesToScan` property is set so that it will look for entities in the package named "hello". This makes it possible to work with JPA without defining a "persistence.xml" file.
- * The `jpaVendorAdapter()` method defines a Hibernate-based JPA vendor adaptor bean for use by the `EntityManagerFactory` bean.
+ * The `dataSource()` method defines a `DataSource` bean, as an embedded database to which the objects are persisted. 
+ * The `entityManagerFactory()` method defines a `LocalContainerEntityManagerFactoryBean` that is ultimately used to create an `EntityManagerFactory` through which JPA operations will be performed. Note that its `packagesToScan` property is set to look for entities in the package named "hello". This makes it possible to work with JPA without defining a "persistence.xml" file.
+ * The `jpaVendorAdapter()` method defines a Hibernate-based JPA vendor adapter bean for use by the `EntityManagerFactory` bean.
  * The `transactionManager()` method defines a `JpaTransactionManager` bean for transactional persistence.
 
 Finally, `Application` includes a `main()` method that puts the `CustomerRepository` through a few tests. First, it fetches the `CustomerRepository` from the Spring application context. Then it saves a handful of `Customer` objects, demonstrating the `save()` method and setting up some data to work with. Next, it calls `findAll()` to fetch all `Customer` objects from the database. Then it calls `findOne()` to fetch a single `Customer` by its ID. Finally, it calls `findByLastName()` to find all customers whose last name is "Bauer".
 
-## <@build_an_executable_jar/>
+Build an executable JAR
+-----------------------
+Now that your `Application` class is ready, you simply instruct the build system to create a single, executable jar containing everything. This makes it easy to ship, version, and deploy the service as an application throughout the development lifecycle, across different environments, and so forth.
+
+Add the following configuration to your existing Maven POM:
+
+`pom.xml`
+```xml
+    <properties>
+        <start-class>hello.Application</start-class>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+```
+
+The `start-class` property tells Maven to create a `META-INF/MANIFEST.MF` file with a `Main-Class: hello.Application` entry. This entry enables you to run the jar with `java -jar`.
+
+The [Maven Shade plugin][maven-shade-plugin] extracts classes from all jars on the classpath and builds a single "über-jar", which makes it more convenient to execute and transport your service.
+
+Now run the following to produce a single executable JAR file containing all necessary dependency classes and resources:
+
+    mvn package
+
+[maven-shade-plugin]: https://maven.apache.org/plugins/maven-shade-plugin
     
 <@run_the_application/>
     
@@ -109,4 +139,4 @@ Customer[id=3, firstName='Kim', lastName='Bauer']
 
 Summary
 -------
-Congratulations! You've written a simple application that uses Spring Data JPA to save some objects to a database and to fetch them; all without writing a concrete repository implementation.
+Congratulations! You've written a simple application that uses Spring Data JPA to save objects to a database and to fetch them -- all without writing a concrete repository implementation.
