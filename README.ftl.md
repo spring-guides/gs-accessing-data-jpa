@@ -77,15 +77,15 @@ In the configuration, you need to add the `@EnableJpaRepositories` annotation. T
 Most of the content in `Application` sets up several beans to support Spring Data JPA and the sample: 
 
  * The `dataSource()` method defines a `DataSource` bean, as an embedded database to which the objects are persisted. 
- * The `entityManagerFactory()` method defines a `LocalContainerEntityManagerFactoryBean` that is ultimately used to create an `EntityManagerFactory` through which JPA operations will be performed. Note that its `packagesToScan` property is set to look for entities in the package named "hello". This makes it possible to work with JPA without defining a "persistence.xml" file.
+ * The `entityManagerFactory()` method defines a `LocalContainerEntityManagerFactoryBean` that is ultimately used to create `LocalContainerEntityManagerFactory` a bean that implements the `EntityManagerFactory` interface. It is the bean through which JPA operations will be performed. Note that this factory bean's `packagesToScan` property is set to look for entities in the package named "hello". This makes it possible to work with JPA without defining a "persistence.xml" file.
  * The `jpaVendorAdapter()` method defines a Hibernate-based JPA vendor adapter bean for use by the `EntityManagerFactory` bean.
  * The `transactionManager()` method defines a `JpaTransactionManager` bean for transactional persistence.
 
 Finally, `Application` includes a `main()` method that puts the `CustomerRepository` through a few tests. First, it fetches the `CustomerRepository` from the Spring application context. Then it saves a handful of `Customer` objects, demonstrating the `save()` method and setting up some data to work with. Next, it calls `findAll()` to fetch all `Customer` objects from the database. Then it calls `findOne()` to fetch a single `Customer` by its ID. Finally, it calls `findByLastName()` to find all customers whose last name is "Bauer".
 
-<@build_an_executable_jar_mainhead>
+<@build_an_executable_jar_mainhead/>
 
-<@build_an_executable_jar>
+<@build_an_executable_jar/>
     
 <@run_the_application/>
     
