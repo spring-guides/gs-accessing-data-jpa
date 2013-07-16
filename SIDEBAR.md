@@ -1,6 +1,6 @@
-### Related Resources
+## Related Resources
 
-There's more to data persistence than what is presented here. You may want to continue your exploration of data access using Spring with the following
+There's more to data persistence than what is presented here. You can continue to explore data access and Spring with the following resources.
 
 ### Getting Started Guides
 
@@ -20,7 +20,7 @@ There's more to data persistence than what is presented here. You may want to co
 
 [tut-tbd]: /guides/tutorials/tbd
 
-### Understanding
+### Concepts and Technologies
 
 * [REST][u-rest]
 * [JSON][u-json]
