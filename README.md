@@ -368,7 +368,9 @@ The [Spring Package maven plugin][spring-package-maven-plugin] collects all the 
 
 Now run the following to produce a single executable JAR file containing all necessary dependency classes and resources:
 
-    mvn package
+```sh
+$ mvn package
+```
 
 [spring-package-maven-plugin]: https://github.com/SpringSource/spring-zero/tree/master/spring-package-maven-plugin
 
@@ -378,8 +380,9 @@ Run the application
 -------------------
 Run your application with `java -jar` at the command line:
 
-    java -jar target/gs-accessing-data-jpa-0.1.0.jar
-
+```sh
+$ java -jar target/gs-accessing-data-jpa-0.1.0.jar
+```
 
     
 You should see something like this:
