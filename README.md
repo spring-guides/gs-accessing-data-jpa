@@ -1,7 +1,4 @@
 
-Getting Started: Accessing Data with JPA
-============================================
-
 What you'll build
 -----------------
 

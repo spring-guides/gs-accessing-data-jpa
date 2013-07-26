@@ -1,8 +1,5 @@
 <#assign project_id="gs-accessing-data-jpa">
 
-Getting Started: Accessing Data with JPA
-============================================
-
 What you'll build
 -----------------
 
