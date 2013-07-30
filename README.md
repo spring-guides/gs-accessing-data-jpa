@@ -62,8 +62,8 @@ In a project directory of your choosing, create the following subdirectory struc
     <version>0.1.0</version>
 
     <parent>
-        <groupId>org.springframework.zero</groupId>
-        <artifactId>spring-starter-parent</artifactId>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-up-parent</artifactId>
         <version>0.5.0.BUILD-SNAPSHOT</version>
     </parent>
 
@@ -77,8 +77,8 @@ In a project directory of your choosing, create the following subdirectory struc
             <artifactId>spring-data-jpa</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.zero</groupId>
-            <artifactId>spring-starter-web</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-up-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -352,8 +352,8 @@ Add the following configuration to your existing Maven POM:
     <build>
         <plugins>
             <plugin>
-                <groupId>org.springframework.zero</groupId>
-                <artifactId>spring-package-maven-plugin</artifactId>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
@@ -361,15 +361,20 @@ Add the following configuration to your existing Maven POM:
 
 The `start-class` property tells Maven to create a `META-INF/MANIFEST.MF` file with a `Main-Class: hello.Application` entry. This entry enables you to run the jar with `java -jar`.
 
-The [Spring Package maven plugin][spring-package-maven-plugin] collects all the jars on the classpath and builds a single "über-jar", which makes it more convenient to execute and transport your service.
+The [Spring Boot maven plugin][spring-boot-maven-plugin] collects all the jars on the classpath and builds a single "über-jar", which makes it more convenient to execute and transport your service.
 
-Now run the following to produce a single executable JAR file containing all necessary dependency classes and resources:
+Now run the following command to produce a single executable JAR file containing all necessary dependency classes and resources:
 
 ```sh
 $ mvn package
 ```
 
-[spring-package-maven-plugin]: https://github.com/SpringSource/spring-zero/tree/master/spring-package-maven-plugin
+To run the package, run this:
+```sh
+$ mvn spring-boot:run
+```
+
+[spring-boot-maven-plugin]: https://github.com/SpringSource/spring-boot/tree/master/spring-boot-maven-plugin
 
 > **Note:** The procedure above will create a runnable JAR. You can also opt to [build a classic WAR file](/guides/gs/convert-jar-to-war/content) instead.
     
