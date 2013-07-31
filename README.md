@@ -63,7 +63,7 @@ In a project directory of your choosing, create the following subdirectory struc
 
     <parent>
         <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-up-parent</artifactId>
+        <artifactId>spring-boot-starter-parent</artifactId>
         <version>0.5.0.BUILD-SNAPSHOT</version>
     </parent>
 
@@ -78,7 +78,7 @@ In a project directory of your choosing, create the following subdirectory struc
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-up-web</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
