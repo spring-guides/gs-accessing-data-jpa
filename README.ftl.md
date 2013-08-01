@@ -84,7 +84,7 @@ Finally, `Application` includes a `main()` method that puts the `CustomerReposit
 
 <@build_an_executable_jar/>
     
-<@run_the_application/>
+<@run_the_application_with_maven/>
     
 You should see something like this:
 ```
