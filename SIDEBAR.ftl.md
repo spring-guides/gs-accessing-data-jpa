@@ -2,7 +2,7 @@
 
 There's more to data persistence than what is presented here. You can continue to explore data access and Spring with the following resources.
 
-### Getting Started Guides
+### Getting Started guides
 
 * [Accessing Relational Data][gs-relational-data-access]
 * [Accessing Data with GemFire][gs-accessing-data-gemfire]
