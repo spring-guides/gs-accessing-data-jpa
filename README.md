@@ -11,9 +11,10 @@ What you'll need
  - About 15 minutes
  - A favorite text editor or IDE
  - [JDK 6][jdk] or later
- - [Maven 3.0][mvn] or later
+ - [Gradle 1.7+][gradle] or [Maven 3.0+][mvn]
 
 [jdk]: http://www.oracle.com/technetwork/java/javase/downloads/index.html
+[gradle]: http://www.gradle.org/
 [mvn]: http://maven.apache.org/download.cgi
 
 How to complete this guide
@@ -39,7 +40,7 @@ To **skip the basics**, do the following:
 Set up the project
 ------------------
 
-First you set up a basic build script. You can use any build system you like when building apps with Spring, but the code you need to work with [Maven](https://maven.apache.org) and [Gradle](http://gradle.org) is included here. If you're not familiar with either, refer to [Building Java Projects with Maven](/guides/gs/maven) or [Building Java Projects with Gradle](/guides/gs/gradle/).
+First you set up a basic build script. You can use any build system you like when building apps with Spring, but the code you need to work with [Gradle](http://gradle.org) and [Maven](https://maven.apache.org) is included here. If you're not familiar with either, refer to [Building Java Projects with Gradle](/guides/gs/gradle/) or [Building Java Projects with Maven](/guides/gs/maven).
 
 ### Create the directory structure
 
@@ -50,104 +51,44 @@ In a project directory of your choosing, create the following subdirectory struc
             └── java
                 └── hello
 
-### Create a Maven POM
+### Create a Gradle build file
 
-`pom.xml`
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>org.springframework.</groupId>
-    <artifactId>gs-accessing-data-jpa</artifactId>
-    <version>0.1.0</version>
+`build.gradle`
+```gradle
+buildscript {
+    repositories {
+        maven { url "http://repo.springsource.org/libs-snapshot" }
+        mavenLocal()
+    }
+}
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>0.5.0.BUILD-SNAPSHOT</version>
-    </parent>
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-        </dependency>
-    </dependencies>
+jar {
+    baseName = 'gs-accessing-data-jpa'
+    version =  '0.1.0'
+}
 
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
-            </plugin>
-        </plugins>
-    </build>
+repositories {
+    mavenCentral()
+    maven { url "http://repo.springsource.org/libs-snapshot" }
+    maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
+}
 
-    <repositories>
-        <repository>
-            <id>spring-snapshots</id>
-            <name>Spring Snapshots</name>
-            <url>http://repo.springsource.org/libs-snapshot</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>http://repo.springsource.org/libs-milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>org.jboss.repository.releases</id>
-            <name>JBoss Maven Release Repository</name>
-            <url>https://repository.jboss.org/nexus/content/repositories/releases</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web:0.5.0.BUILD-SNAPSHOT")
+    compile("org.springframework:spring-orm:4.0.0.M2")
+    compile("org.springframework.data:spring-data-jpa:1.3.2.RELEASE")
+    compile("org.hibernate:hibernate-entitymanager:4.2.1.Final")
+    compile("com.h2database:h2:1.3.172")
+    testCompile("junit:junit:4.11")
+}
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>spring-snapshots</id>
-            <name>Spring Snapshots</name>
-            <url>http://repo.springsource.org/libs-snapshot</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>http://repo.springsource.org/libs-milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
-</project>
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.7'
+}
 ```
 
 
@@ -352,44 +293,45 @@ Build an executable JAR
 
 Now that your `Application` class is ready, you simply instruct the build system to create a single, executable jar containing everything. This makes it easy to ship, version, and deploy the service as an application throughout the development lifecycle, across different environments, and so forth.
 
-Add the following configuration to your existing Maven POM:
+Add the following configuration to your existing Gradle build file:
 
-`pom.xml`
-```xml
-    <properties>
-        <start-class>hello.Application</start-class>
-    </properties>
+`build.gradle`
+```groovy
+buildscript {
+    ...
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:0.5.0.BUILD-SNAPSHOT")
+    }
+}
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+apply plugin: 'spring-boot'
 ```
 
-The `start-class` property tells Maven to create a `META-INF/MANIFEST.MF` file with a `Main-Class: hello.Application` entry. This entry enables you to run it with `mvn spring-boot:run` (or simply run the jar itself with `java -jar`).
-
-The [Spring Boot maven plugin][spring-boot-maven-plugin] collects all the jars on the classpath and builds a single "über-jar", which makes it more convenient to execute and transport your service.
+The [Spring Boot gradle plugin][spring-boot-gradle-plugin] collects all the jars on the classpath and builds a single "über-jar", which makes it more convenient to execute and transport your service.
+It also searches for the `public static void main()` method to flag as a runnable class.
 
 Now run the following command to produce a single executable JAR file containing all necessary dependency classes and resources:
 
 ```sh
-$ mvn package
+$ ./gradlew build
 ```
 
-[spring-boot-maven-plugin]: https://github.com/SpringSource/spring-boot/tree/master/spring-boot-tools/spring-boot-maven-plugin
+Now you can run the JAR by typing:
+
+```sh
+$ java -jar build/libs/gs-accessing-data-jpa-0.1.0.jar
+```
+
+[spring-boot-gradle-plugin]: https://github.com/SpringSource/spring-boot/tree/master/spring-boot-tools/spring-boot-gradle-plugin
 
 > **Note:** The procedure above will create a runnable JAR. You can also opt to [build a classic WAR file](/guides/gs/convert-jar-to-war/) instead.
     
 Run the service
 -------------------
-Run your service using the spring-boot plugin at the command line:
+Run your service at the command line:
 
 ```sh
-$ mvn spring-boot:run
+$ ./gradlew clean build && java -jar build/libs/gs-accessing-data-jpa-0.1.0.jar
 ```
 
     

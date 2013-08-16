@@ -23,9 +23,9 @@ Set up the project
 
 <@create_directory_structure_hello/>
 
-### Create a Maven POM
+### Create a Gradle build file
 
-    <@snippet path="pom.xml" prefix="initial"/>
+    <@snippet path="build.gradle" prefix="initial"/>
 
 
 <a name="initial"></a>
@@ -83,9 +83,9 @@ Finally, `Application` includes a `main()` method that puts the `CustomerReposit
 
 <@build_an_executable_jar_mainhead/>
 
-<@build_an_executable_jar/>
+<@build_an_executable_jar_with_gradle/>
     
-<@run_the_application_with_maven/>
+<@run_the_application_with_gradle/>
     
 You should see something like this:
 ```
