@@ -1,4 +1,4 @@
-## Related Resources
+## Related resources
 
 There's more to data persistence than what is presented here. You can continue to explore data access and Spring with the following resources.
 
@@ -20,7 +20,7 @@ There's more to data persistence than what is presented here. You can continue t
 
 [tut-rest]: /guides/tutorials/rest
 
-### Concepts and Technologies
+### Concepts and technologies
 
 * [REST][u-rest]
 * [JSON][u-json]
