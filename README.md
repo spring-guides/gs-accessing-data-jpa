@@ -3,7 +3,7 @@ This guide walks you through the process of building an application that uses Sp
 What you'll build
 -----------------
 
-You will store `Person` POJOs in a memory-based database using Spring Data JPA.
+You'll build an application that stores `Person` POJOs in a memory-based database.
 
 What you'll need
 ----------------
