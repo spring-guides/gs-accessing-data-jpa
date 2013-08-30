@@ -82,7 +82,7 @@ repositories {
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web:0.5.0.BUILD-SNAPSHOT")
+    compile("org.springframework.boot:spring-boot-starter-web:0.5.0.M2")
     compile("org.springframework:spring-orm:4.0.0.M2")
     compile("org.springframework.data:spring-data-jpa:1.3.2.RELEASE")
     compile("org.hibernate:hibernate-entitymanager:4.2.1.Final")
@@ -310,7 +310,7 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:0.5.0.BUILD-SNAPSHOT")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:0.5.0.M2")
     }
 }
 ```
