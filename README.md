@@ -61,7 +61,7 @@ Below is the [initial Gradle build file](https://github.com/spring-guides/gs-acc
 ```gradle
 buildscript {
     repositories {
-        maven { url "http://repo.spring.io/libs-snapshot" }
+        maven { url "http://repo.spring.io/libs-milestone" }
         mavenLocal()
     }
 }
@@ -77,12 +77,12 @@ jar {
 
 repositories {
     mavenCentral()
-    maven { url "http://repo.spring.io/libs-snapshot" }
+    maven { url "http://repo.spring.io/libs-milestone" }
     maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web:0.5.0.M4")
+    compile("org.springframework.boot:spring-boot-starter-web:0.5.0.M5")
     compile("org.springframework:spring-orm:4.0.0.M3")
     compile("org.springframework.data:spring-data-jpa:1.3.2.RELEASE")
     compile("org.hibernate:hibernate-entitymanager:4.2.1.Final")
