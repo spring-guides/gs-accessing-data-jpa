@@ -4,7 +4,6 @@ import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.
 
 import java.util.List;
 
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -48,8 +47,8 @@ public class Application {
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
-        return new JpaTransactionManager(entityManagerFactory);
+    public PlatformTransactionManager transactionManager() {
+        return new JpaTransactionManager();
     }
 
 
@@ -65,7 +64,7 @@ public class Application {
         repository.save(new Customer("Michelle", "Dessler"));
 
         // fetch all customers
-        List<Customer> customers = repository.findAll();
+        Iterable<Customer> customers = repository.findAll();
         System.out.println("Customers found with findAll():");
         System.out.println("-------------------------------");
         for (Customer customer : customers) {
