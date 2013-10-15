@@ -122,7 +122,7 @@ public class Customer {
     private String firstName;
     private String lastName;
 
-    private Customer() {}
+    protected Customer() {}
 
     public Customer(String firstName, String lastName) {
         this.firstName = firstName;
@@ -140,7 +140,7 @@ public class Customer {
 
 ```
 
-Here you have a `Customer` class with three attributes, the `id`, the `firstName`, and the `lastName`. You also have two constructors. The default constructor only exists for the sake of JPA. You won't use it directly, so it is designated as `private`. The other constructor is the one you'll use to create instances of `Customer` to be saved to the database.
+Here you have a `Customer` class with three attributes, the `id`, the `firstName`, and the `lastName`. You also have two constructors. The default constructor only exists for the sake of JPA. You won't use it directly, so it is designated as `protected`. The other constructor is the one you'll use to create instances of `Customer` to be saved to the database.
 
 > Note: In this guide, the typical getters and setters have been left out for brevity.
 
@@ -164,16 +164,15 @@ package hello;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface CustomerRepository extends JpaRepository<Customer, Long> {
+public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
     List<Customer> findByLastName(String lastName);
-
 }
 ```
     
-`CustomerRepository` extends the `JpaRepository` interface. The type of entity and ID that it works with,`Customer` and `Long`, are specified in the generic parameters on `JpaRepository`. By extending `JpaRepository`, `CustomerRepository` inherits several methods for working with `Customer` persistence, including methods for saving, deleting, and finding `Customer` entities.
+`CustomerRepository` extends the `CrudRepository` interface. The type of entity and ID that it works with,`Customer` and `Long`, are specified in the generic parameters on `CrudRepository`. By extending `CrudRepository`, `CustomerRepository` inherits several methods for working with `Customer` persistence, including methods for saving, deleting, and finding `Customer` entities.
 
 Spring Data JPA also allows you to define other query methods by simply declaring their method signature. In the case of `CustomerRepository`, this is shown with a `findByLastName()` method.
 
@@ -193,7 +192,6 @@ import static org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType.
 
 import java.util.List;
 
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -237,8 +235,8 @@ public class Application {
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
-        return new JpaTransactionManager(entityManagerFactory);
+    public PlatformTransactionManager transactionManager() {
+        return new JpaTransactionManager();
     }
 
 
@@ -254,7 +252,7 @@ public class Application {
         repository.save(new Customer("Michelle", "Dessler"));
 
         // fetch all customers
-        List<Customer> customers = repository.findAll();
+        Iterable<Customer> customers = repository.findAll();
         System.out.println("Customers found with findAll():");
         System.out.println("-------------------------------");
         for (Customer customer : customers) {
@@ -288,7 +286,7 @@ In the configuration, you need to add the `@EnableJpaRepositories` annotation. T
 Most of the content in `Application` sets up several beans to support Spring Data JPA and the sample: 
 
  * The `dataSource()` method defines a `DataSource` bean, as an embedded database to which the objects are persisted. 
- * The `entityManagerFactory()` method defines a `LocalContainerEntityManagerFactoryBean` that is ultimately used to create `LocalContainerEntityManagerFactory` a bean that implements the `EntityManagerFactory` interface. It is the bean through which JPA operations will be performed. Note that this factory bean's `packagesToScan` property is set to look for entities in the package named "hello". This makes it possible to work with JPA without defining a "persistence.xml" file.
+ * The `entityManagerFactory()` method defines a `LocalContainerEntityManagerFactoryBean` that is ultimately used to create a proxy bean that implements the `EntityManagerFactory` interface. It is the bean through which JPA operations will be performed. Note that this factory bean's `packagesToScan` property is set to look for entities in the package named "hello". This makes it possible to work with JPA without defining a "persistence.xml" file.
  * The `jpaVendorAdapter()` method defines a Hibernate-based JPA vendor adapter bean for use by the `EntityManagerFactory` bean.
  * The `transactionManager()` method defines a `JpaTransactionManager` bean for transactional persistence.
 
