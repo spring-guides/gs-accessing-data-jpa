@@ -82,9 +82,9 @@ repositories {
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web:0.5.0.M5")
-    compile("org.springframework:spring-orm:4.0.0.M3")
-    compile("org.springframework.data:spring-data-jpa:1.3.2.RELEASE")
+    compile("org.springframework.boot:spring-boot-starter-web:0.5.0.M6")
+    compile("org.springframework:spring-orm:4.0.0.RC1")
+    compile("org.springframework.data:spring-data-jpa:1.4.1.RELEASE")
     compile("org.hibernate:hibernate-entitymanager:4.2.1.Final")
     compile("com.h2database:h2:1.3.172")
     testCompile("junit:junit:4.11")
