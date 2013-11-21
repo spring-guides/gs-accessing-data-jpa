@@ -1,43 +1,46 @@
-<#assign project_id="gs-accessing-data-jpa">
+:toc:
+:icons: font
+:source-highlighter: prettify
+:project_id: gs-accessing-data-jpa
 This guide walks you through the process of building an application that uses Spring Data JPA to store and retrieve data in a relational database.
 
-What you'll build
------------------
+== What you'll build
 
 You'll build an application that stores `Person` POJOs in a memory-based database.
 
-What you'll need
-----------------
+== What you'll need
 
- - About 15 minutes
- - <@prereq_editor_jdk_buildtools/>
+include::macros/prereq_editor_jdk_buildtools.asc[]
 
-## <@how_to_complete_this_guide jump_ahead='Define a simple entity'/>
-
-
-<a name="scratch"></a>
-Set up the project
-------------------
-
-<@build_system_intro/>
-
-<@create_directory_structure_hello/>
+:jump_ahead: Define a simple entity
+include::macros/how_to_complete_this_guide.asc[]
 
 
-<@create_both_builds/>
+[[scratch]]
+== Set up the project
+
+include::macros/build_system_intro.asc[]
+
+include::macros/create_directory_structure_hello.asc[]
 
 
-<a name="initial"></a>
-Define a simple entity
-------------------------
+include::macros/create_both_builds.asc[]
+
+
+[[initial]]
+== Define a simple entity
 
 In this example, you store Customer objects, annotated as a JPA entity.
 
-    <@snippet path="src/main/java/hello/Customer.java" prefix="complete"/>
+`src/main/java/hello/Customer.java`
+[source,java]
+----
+include::complete/src/main/java/hello/Customer.java[]
+----
 
 Here you have a `Customer` class with three attributes, the `id`, the `firstName`, and the `lastName`. You also have two constructors. The default constructor only exists for the sake of JPA. You won't use it directly, so it is designated as `protected`. The other constructor is the one you'll use to create instances of `Customer` to be saved to the database.
 
-> Note: In this guide, the typical getters and setters have been left out for brevity.
+NOTE: In this guide, the typical getters and setters have been left out for brevity.
 
 The `Customer` class is annotated with `@Entity`, indicating that it is a JPA entity. For lack of a `@Table` annotation, it is assumed that this entity will be mapped to a table named `Customer`.
 
@@ -47,13 +50,16 @@ The other two properties, `firstName` and `lastName` are left unannotated. It is
 
 The convenient `toString()` method will print out the customer's properties.
 
-Create simple queries
-----------------------------
+== Create simple queries
 Spring Data JPA focuses on using JPA to store data in a relational database. Its most compelling feature is the ability to create repository implementations automatically, at runtime, from a repository interface.
 
 To see how this works, create a repository interface that works with `Customer` entities:
 
-    <@snippet path="src/main/java/hello/CustomerRepository.java" prefix="complete"/>
+`src/main/java/hello/CustomerRepository.java`
+[source,java]
+----
+include::complete/src/main/java/hello/CustomerRepository.java[]
+----
     
 `CustomerRepository` extends the `CrudRepository` interface. The type of entity and ID that it works with,`Customer` and `Long`, are specified in the generic parameters on `CrudRepository`. By extending `CrudRepository`, `CustomerRepository` inherits several methods for working with `Customer` persistence, including methods for saving, deleting, and finding `Customer` entities.
 
@@ -63,11 +69,14 @@ In a typical Java application, you'd expect to write a class that implements `Cu
 
 Let's wire this up and see what it looks like!
 
-Create an Application class
----------------------------
+== Create an Application class
 Here you create an Application class with all the components.
 
-    <@snippet path="src/main/java/hello/Application.java" prefix="complete"/>
+`src/main/java/hello/Application.java`
+[source,java]
+----
+include::complete/src/main/java/hello/Application.java[]
+----
 
 In the configuration, you need to add the `@EnableJpaRepositories` annotation. This annotation tells Spring Data JPA that it should seek out any interface that extends `org.springframework.data.repository.Repository` and automatically generate an implementation. By extending `JpaRepository`, your `CustomerRepository` interface transitively extends `Repository`. Therefore, Spring Data JPA will find it and create an implementation for you.
 
@@ -80,32 +89,28 @@ Most of the content in `Application` sets up several beans to support Spring Dat
 
 `Application` includes a `main()` method that puts the `CustomerRepository` through a few tests. First, it fetches the `CustomerRepository` from the Spring application context. Then it saves a handful of `Customer` objects, demonstrating the `save()` method and setting up some data to work with. Next, it calls `findAll()` to fetch all `Customer` objects from the database. Then it calls `findOne()` to fetch a single `Customer` by its ID. Finally, it calls `findByLastName()` to find all customers whose last name is "Bauer".
 
-<@build_an_executable_jar_mainhead/>
+include::macros/build_an_executable_jar_mainhead.asc[]
 
-<@build_an_executable_jar_with_both/>
+include::macros/build_an_executable_jar_with_both.asc[]
     
-<@run_the_application_with_both/>
+include::macros/run_the_application_with_both.asc[]
     
 You should see something like this:
-```
-Customers found with findAll():
--------------------------------
+....
+== Customers found with findAll():
 Customer[id=1, firstName='Jack', lastName='Bauer']
 Customer[id=2, firstName='Chloe', lastName='O'Brian']
 Customer[id=3, firstName='Kim', lastName='Bauer']
 Customer[id=4, firstName='David', lastName='Palmer']
 Customer[id=5, firstName='Michelle', lastName='Dessler']
 
-Customer found with findOne(1L):
---------------------------------
+== Customer found with findOne(1L):
 Customer[id=1, firstName='Jack', lastName='Bauer']
 
-Customer found with findByLastName('Bauer'):
---------------------------------------------
+== Customer found with findByLastName('Bauer'):
 Customer[id=1, firstName='Jack', lastName='Bauer']
 Customer[id=3, firstName='Kim', lastName='Bauer']
-```
+....
 
-Summary
--------
+== Summary
 Congratulations! You've written a simple application that uses Spring Data JPA to save objects to a database and to fetch them -- all without writing a concrete repository implementation.
