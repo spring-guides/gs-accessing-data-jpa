@@ -10,22 +10,27 @@ You'll build an application that stores `Person` POJOs in a memory-based databas
 
 == What you'll need
 
-include::macros/prereq_editor_jdk_buildtools.asc[]
+include::https://raw.github.com/spring-guides/getting-started-macros/master/prereq_editor_jdk_buildtools.adoc[]
 
 :jump_ahead: Define a simple entity
-include::macros/how_to_complete_this_guide.asc[]
+include::https://raw.github.com/spring-guides/getting-started-macros/master/how_to_complete_this_guide.adoc[]
 
 
 [[scratch]]
 == Set up the project
 
-include::macros/build_system_intro.asc[]
+include::https://raw.github.com/spring-guides/getting-started-macros/master/build_system_intro.adoc[]
 
-include::macros/create_directory_structure_hello.asc[]
+include::https://raw.github.com/spring-guides/getting-started-macros/master/create_directory_structure_hello.adoc[]
 
 
-include::macros/create_both_builds.asc[]
-
+include::https://raw.github.com/spring-guides/getting-started-macros/master/create_both_builds.adoc[]
+`build.gradle`
+// AsciiDoc source formatting doesn't support groovy, so using java instead
+[source,java]
+----
+include::initial/build.gradle[]
+----
 
 [[initial]]
 == Define a simple entity
@@ -89,11 +94,11 @@ Most of the content in `Application` sets up several beans to support Spring Dat
 
 `Application` includes a `main()` method that puts the `CustomerRepository` through a few tests. First, it fetches the `CustomerRepository` from the Spring application context. Then it saves a handful of `Customer` objects, demonstrating the `save()` method and setting up some data to work with. Next, it calls `findAll()` to fetch all `Customer` objects from the database. Then it calls `findOne()` to fetch a single `Customer` by its ID. Finally, it calls `findByLastName()` to find all customers whose last name is "Bauer".
 
-include::macros/build_an_executable_jar_mainhead.asc[]
+include::https://raw.github.com/spring-guides/getting-started-macros/master/build_an_executable_jar_mainhead.adoc[]
 
-include::macros/build_an_executable_jar_with_both.asc[]
+include::https://raw.github.com/spring-guides/getting-started-macros/master/build_an_executable_jar_with_both.adoc[]
     
-include::macros/run_the_application_with_both.asc[]
+include::https://raw.github.com/spring-guides/getting-started-macros/master/run_the_application_with_both.adoc[]
     
 You should see something like this:
 ....
