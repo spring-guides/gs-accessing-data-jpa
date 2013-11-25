@@ -12,7 +12,6 @@ You'll build an application that stores `Person` POJOs in a memory-based databas
 
 include::https://raw.github.com/spring-guides/getting-started-macros/master/prereq_editor_jdk_buildtools.adoc[]
 
-:jump_ahead: Define a simple entity
 include::https://raw.github.com/spring-guides/getting-started-macros/master/how_to_complete_this_guide.adoc[]
 
 
