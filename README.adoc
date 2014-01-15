@@ -1,3 +1,7 @@
+---
+tags: [data, jpa]
+projects: [spring-data-jpa]
+---
 :toc:
 :icons: font
 :source-highlighter: prettify
