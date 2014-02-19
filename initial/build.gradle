@@ -25,10 +25,7 @@ repositories {
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework:spring-orm")
-    compile("org.springframework.data:spring-data-jpa")
-    compile("org.hibernate:hibernate-entitymanager")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("com.h2database:h2")
     testCompile("junit:junit")
 }
