@@ -86,14 +86,7 @@ Here you create an Application class with all the components.
 include::complete/src/main/java/hello/Application.java[]
 ----
 
-In the configuration, you need to add the `@EnableJpaRepositories` annotation. This annotation tells Spring Data JPA that it should seek out any interface that extends `org.springframework.data.repository.Repository` and automatically generate an implementation. By extending `JpaRepository`, your `CustomerRepository` interface transitively extends `Repository`. Therefore, Spring Data JPA will find it and create an implementation for you.
-
-Most of the content in `Application` sets up several beans to support Spring Data JPA and the sample: 
-
- * The `dataSource()` method defines a `DataSource` bean, as an embedded database to which the objects are persisted. 
- * The `entityManagerFactory()` method defines a `LocalContainerEntityManagerFactoryBean` that is ultimately used to create a proxy bean that implements the `EntityManagerFactory` interface. It is the bean through which JPA operations will be performed. Note that this factory bean's `packagesToScan` property is set to look for entities in the package named "hello". This makes it possible to work with JPA without defining a "persistence.xml" file.
- * The `jpaVendorAdapter()` method defines a Hibernate-based JPA vendor adapter bean for use by the `EntityManagerFactory` bean.
- * The `transactionManager()` method defines a `JpaTransactionManager` bean for transactional persistence.
+In the configuration, you need to add the `@EnableAutoConfiguration` annotation. This annotation tells Spring Boot to configure JPA repositories and entities from the current package. So any interface that extends `org.springframework.data.repository.Repository` will automatically have an implementation generated. By extending `JpaRepository`, your `CustomerRepository` interface transitively extends `Repository`. Therefore, Spring Data JPA will find it and create an implementation for you.
 
 `Application` includes a `main()` method that puts the `CustomerRepository` through a few tests. First, it fetches the `CustomerRepository` from the Spring application context. Then it saves a handful of `Customer` objects, demonstrating the `save()` method and setting up some data to work with. Next, it calls `findAll()` to fetch all `Customer` objects from the database. Then it calls `findOne()` to fetch a single `Customer` by its ID. Finally, it calls `findByLastName()` to find all customers whose last name is "Bauer".
 
