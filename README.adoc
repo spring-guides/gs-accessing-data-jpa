@@ -116,4 +116,4 @@ Customer[id=3, firstName='Kim', lastName='Bauer']
 == Summary
 Congratulations! You've written a simple application that uses Spring Data JPA to save objects to a database and to fetch them -- all without writing a concrete repository implementation.
 
-NOTE: If you're interesting in exposing your `PersonRepository` with a hypermedia-based RESTful front end with little effort, you might want to read link:/guides/gs/accessing-data-rest[Accessing JPA Data with REST].
+NOTE: If you're interesting in exposing JPA repositories with a hypermedia-based RESTful front end with little effort, you might want to read link:/guides/gs/accessing-data-rest[Accessing JPA Data with REST].
