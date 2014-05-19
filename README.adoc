@@ -12,7 +12,7 @@ This guide walks you through the process of building an application that uses Sp
 
 You'll build an application that stores `Customer` POJOs in a memory-based database.
 
-== What you'll neede
+== What you'll need
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/prereq_editor_jdk_buildtools.adoc[]
 
