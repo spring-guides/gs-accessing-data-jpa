@@ -48,7 +48,7 @@
         <repository>
             <id>spring-releases</id>
             <name>Spring Releases</name>
-            <url>http://repo.spring.io/release</url>
+            <url>http://repo.spring.io/libs-release</url>
         </repository>
         <repository>
             <id>org.jboss.repository.releases</id>
@@ -61,7 +61,7 @@
         <pluginRepository>
             <id>spring-releases</id>
             <name>Spring Releases</name>
-            <url>http://repo.spring.io/release</url>
+            <url>http://repo.spring.io/libs-release</url>
         </pluginRepository>
     </pluginRepositories>
 
