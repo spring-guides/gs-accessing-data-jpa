@@ -11,7 +11,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.0.2.RELEASE</version>
+        <version>1.1.0.RELEASE</version>
     </parent>
 
     <dependencies>
@@ -46,31 +46,22 @@
 
     <repositories>
         <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>http://repo.spring.io/libs-milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
+            <id>spring-releases</id>
+            <name>Spring Releases</name>
+            <url>http://repo.spring.io/release</url>
         </repository>
         <repository>
             <id>org.jboss.repository.releases</id>
             <name>JBoss Maven Release Repository</name>
             <url>https://repository.jboss.org/nexus/content/repositories/releases</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
         </repository>
     </repositories>
 
     <pluginRepositories>
         <pluginRepository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>http://repo.spring.io/libs-milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
+            <id>spring-releases</id>
+            <name>Spring Releases</name>
+            <url>http://repo.spring.io/release</url>
         </pluginRepository>
     </pluginRepositories>
 
