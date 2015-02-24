@@ -1,21 +1,23 @@
 package hello;
 
-import java.util.List;
+import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@Configuration
-@EnableAutoConfiguration
+@SpringBootApplication
 public class Application {
+
+    @Autowired
+    CustomerRepository repository;
     
     public static void main(String[] args) {
-    	
-        ConfigurableApplicationContext context = SpringApplication.run(Application.class);
-        CustomerRepository repository = context.getBean(CustomerRepository.class);
+        SpringApplication.run(Application.class);
+    }
 
+    @PostConstruct
+    private void test() {
         // save a couple of customers
         repository.save(new Customer("Jack", "Bauer"));
         repository.save(new Customer("Chloe", "O'Brian"));
@@ -24,10 +26,9 @@ public class Application {
         repository.save(new Customer("Michelle", "Dessler"));
 
         // fetch all customers
-        Iterable<Customer> customers = repository.findAll();
         System.out.println("Customers found with findAll():");
         System.out.println("-------------------------------");
-        for (Customer customer : customers) {
+        for (Customer customer : repository.findAll()) {
             System.out.println(customer);
         }
         System.out.println();
@@ -40,14 +41,11 @@ public class Application {
         System.out.println();
 
         // fetch customers by last name
-        List<Customer> bauers = repository.findByLastName("Bauer");
         System.out.println("Customer found with findByLastName('Bauer'):");
         System.out.println("--------------------------------------------");
-        for (Customer bauer : bauers) {
+        for (Customer bauer : repository.findByLastName("Bauer")) {
             System.out.println(bauer);
         }
-
-        context.close();
     }
 
 }
