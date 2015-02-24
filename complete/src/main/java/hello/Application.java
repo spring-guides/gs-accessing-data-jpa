@@ -1,13 +1,12 @@
 package hello;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Application {
+public class Application implements CommandLineRunner {
 
     @Autowired
     CustomerRepository repository;
@@ -16,8 +15,8 @@ public class Application {
         SpringApplication.run(Application.class);
     }
 
-    @PostConstruct
-    private void test() {
+    @Override
+    public void run(String... strings) throws Exception {
         // save a couple of customers
         repository.save(new Customer("Jack", "Bauer"));
         repository.save(new Customer("Chloe", "O'Brian"));
