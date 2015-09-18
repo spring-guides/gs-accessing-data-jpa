@@ -1,5 +1,8 @@
 package hello;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -7,6 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {
+
+    private static final Logger log = LoggerFactory.getLogger(Application.class);
 
     @Autowired
     CustomerRepository repository;
@@ -25,25 +30,24 @@ public class Application implements CommandLineRunner {
         repository.save(new Customer("Michelle", "Dessler"));
 
         // fetch all customers
-        System.out.println("Customers found with findAll():");
-        System.out.println("-------------------------------");
+        log.info("Customers found with findAll():");
+        log.info("-------------------------------");
         for (Customer customer : repository.findAll()) {
-            System.out.println(customer);
+            log.info(customer.toString());
         }
         System.out.println();
 
         // fetch an individual customer by ID
         Customer customer = repository.findOne(1L);
-        System.out.println("Customer found with findOne(1L):");
-        System.out.println("--------------------------------");
-        System.out.println(customer);
-        System.out.println();
+        log.info("Customer found with findOne(1L):");
+        log.info("--------------------------------");
+        log.info(customer.toString());
 
         // fetch customers by last name
-        System.out.println("Customer found with findByLastName('Bauer'):");
-        System.out.println("--------------------------------------------");
+        log.info("Customer found with findByLastName('Bauer'):");
+        log.info("--------------------------------------------");
         for (Customer bauer : repository.findByLastName("Bauer")) {
-            System.out.println(bauer);
+            log.info(bauer.toString());
         }
     }
 
