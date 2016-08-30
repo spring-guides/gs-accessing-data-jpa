@@ -33,9 +33,10 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 In this example, you store Customer objects, annotated as a JPA entity.
 
 `src/main/java/hello/Customer.java`
-[source,java]
+[source,java,indent=0]
 ----
-include::complete/src/main/java/hello/Customer.java[]
+include::complete/src/main/java/hello/Customer.java[tag=sample]
+}
 ----
 
 Here you have a `Customer` class with three attributes, the `id`, the `firstName`, and the `lastName`. You also have two constructors. The default constructor only exists for the sake of JPA. You won't use it directly, so it is designated as `protected`. The other constructor is the one you'll use to create instances of `Customer` to be saved to the database.

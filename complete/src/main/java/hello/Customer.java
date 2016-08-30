@@ -1,3 +1,4 @@
+// tag::sample[]
 package hello;
 
 import javax.persistence.Entity;
@@ -10,7 +11,7 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private long id;
+    private Long id;
     private String firstName;
     private String lastName;
 
@@ -28,5 +29,18 @@ public class Customer {
                 id, firstName, lastName);
     }
 
+// end::sample[]
+
+	public Long getId() {
+		return id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
 }
 
