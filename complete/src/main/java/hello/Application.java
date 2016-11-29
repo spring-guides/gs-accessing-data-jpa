@@ -33,14 +33,14 @@ public class Application {
 			for (Customer customer : repository.findAll()) {
 				log.info(customer.toString());
 			}
-            log.info("");
+			log.info("");
 
 			// fetch an individual customer by ID
 			Customer customer = repository.findOne(1L);
 			log.info("Customer found with findOne(1L):");
 			log.info("--------------------------------");
 			log.info(customer.toString());
-            log.info("");
+			log.info("");
 
 			// fetch customers by last name
 			log.info("Customer found with findByLastName('Bauer'):");
@@ -48,7 +48,7 @@ public class Application {
 			for (Customer bauer : repository.findByLastName("Bauer")) {
 				log.info(bauer.toString());
 			}
-            log.info("");
+			log.info("");
 		};
 	}
 
