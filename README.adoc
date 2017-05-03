@@ -62,7 +62,7 @@ To see how this works, create a repository interface that works with `Customer` 
 include::complete/src/main/java/hello/CustomerRepository.java[]
 ----
     
-`CustomerRepository` extends the `CrudRepository` interface. The type of entity and ID that it works with,`Customer` and `Long`, are specified in the generic parameters on `CrudRepository`. By extending `CrudRepository`, `CustomerRepository` inherits several methods for working with `Customer` persistence, including methods for saving, deleting, and finding `Customer` entities.
+`CustomerRepository` extends the `JpaRepository` interface. The type of entity and ID that it works with,`Customer` and `Long`, are specified in the generic parameters on `JpaRepository`. By extending `JpaRepository`, `CustomerRepository` inherits several methods for working with `Customer` persistence, including methods for saving, deleting, and finding `Customer` entities.
 
 Spring Data JPA also allows you to define other query methods by simply declaring their method signature. In the case of `CustomerRepository`, this is shown with a `findByLastName()` method.
 
