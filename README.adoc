@@ -61,7 +61,7 @@ To see how this works, create a repository interface that works with `Customer` 
 ----
 include::complete/src/main/java/hello/CustomerRepository.java[]
 ----
-    
+
 `CustomerRepository` extends the `CrudRepository` interface. The type of entity and ID that it works with,`Customer` and `Long`, are specified in the generic parameters on `CrudRepository`. By extending `CrudRepository`, `CustomerRepository` inherits several methods for working with `Customer` persistence, including methods for saving, deleting, and finding `Customer` entities.
 
 Spring Data JPA also allows you to define other query methods by simply declaring their method signature. In the case of `CustomerRepository`, this is shown with a `findByLastName()` method.
@@ -83,13 +83,13 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 
 `Application` includes a `main()` method that puts the `CustomerRepository` through a few tests. First, it fetches the `CustomerRepository` from the Spring application context. Then it saves a handful of `Customer` objects, demonstrating the `save()` method and setting up some data to work with. Next, it calls `findAll()` to fetch all `Customer` objects from the database. Then it calls `findOne()` to fetch a single `Customer` by its ID. Finally, it calls `findByLastName()` to find all customers whose last name is "Bauer".
 
-NOTE: By default, Spring Boot will enable JPA repository support and look in the package (and its subpackages) where `@SpringBootApplication` is located. If your configuration has JPA repository interface definitions located in a package not visible, you can point out alternate packages using `@EnableJpaRepositories` and its type-safe `basePackageClasses=MyRepository.class` parameter. 
+NOTE: By default, Spring Boot will enable JPA repository support and look in the package (and its subpackages) where `@SpringBootApplication` is located. If your configuration has JPA repository interface definitions located in a package not visible, you can point out alternate packages using `@EnableJpaRepositories` and its type-safe `basePackageClasses=MyRepository.class` parameter.
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/build_an_executable_jar_mainhead.adoc[]
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/build_an_executable_jar_with_both.adoc[]
-    
-    
+
+
 You should see something like this:
 ....
 == Customers found with findAll():
@@ -112,5 +112,13 @@ Congratulations! You've written a simple application that uses Spring Data JPA t
 
 NOTE: If you're interesting in exposing JPA repositories with a hypermedia-based RESTful front end with little effort, you might want to read link:/guides/gs/accessing-data-rest[Accessing JPA Data with REST].
 
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/footer.adoc[]
+== See Also
 
+The following guides may also be helpful:
+
+* https://spring.io/guides/gs/accessing-data-gemfire/[Accessing Data with Gemfire]
+* https://spring.io/guides/gs/accessing-data-mongodb/[Accessing Data with MongoDB]
+* https://spring.io/guides/gs/accessing-data-mysql/[Accessing data with MySQL]
+* https://spring.io/guides/gs/accessing-data-neo4j/[Accessing Data with Neo4j]
+
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/footer.adoc[]
