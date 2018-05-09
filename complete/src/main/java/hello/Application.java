@@ -8,6 +8,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
+
 @SpringBootApplication
 public class Application {
 
@@ -18,43 +20,33 @@ public class Application {
 	}
 
 	@Bean
-	public CommandLineRunner demo(CustomerRepository repository) {
+	public CommandLineRunner demo(TeamRepository teamRepository, GameRepository gameRepository) {
 		return (args) -> {
-			// save a couple of customers
-			repository.save(new Customer("Jack", "Bauer"));
-			repository.save(new Customer("Chloe", "O'Brian"));
-			repository.save(new Customer("Kim", "Bauer"));
-			repository.save(new Customer("David", "Palmer"));
-			repository.save(new Customer("Michelle", "Dessler"));
+			// save a couple of teams
+			Team first = new Team("first");
+			teamRepository.save(first);
+			Team second = new Team("second");
+			teamRepository.save(second);
+			Team third = new Team("third");
+			teamRepository.save(third);
+			teamRepository.save(new Team("fourth"));
 
-			// fetch all customers
-			log.info("Customers found with findAll():");
-			log.info("-------------------------------");
-			for (Customer customer : repository.findAll()) {
-				log.info(customer.toString());
-			}
-			log.info("");
+			// save a couple of games
+			gameRepository.save(new Game(first, second));
+			gameRepository.save(new Game(first, third));
 
-			// fetch an individual customer by ID
-			repository.findById(1L)
-				.ifPresent(customer -> {
-					log.info("Customer found with findById(1L):");
-					log.info("--------------------------------");
-					log.info(customer.toString());
-					log.info("");
-				});
-
-			// fetch customers by last name
-			log.info("Customer found with findByLastName('Bauer'):");
-			log.info("--------------------------------------------");
-			repository.findByLastName("Bauer").forEach(bauer -> {
-				log.info(bauer.toString());
-			});
-			// for (Customer bauer : repository.findByLastName("Bauer")) {
-			// 	log.info(bauer.toString());
-			// }
+			this.printGamesPlayedByTeam(gameRepository, "first");
+			this.printGamesPlayedByTeam(gameRepository, "second");
+			this.printGamesPlayedByTeam(gameRepository, "third");
+			this.printGamesPlayedByTeam(gameRepository, "fourth");
 			log.info("");
 		};
+	}
+
+	private void printGamesPlayedByTeam(GameRepository gameRepository, String teamName){
+		log.info("Games played by team =  {}", teamName);
+		List<Game> gamesPlayedByTeamFirst = gameRepository.findPlayedGames(teamName);
+		gamesPlayedByTeamFirst.forEach(game ->log.info(game.toString()));
 	}
 
 }
