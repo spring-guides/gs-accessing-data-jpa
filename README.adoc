@@ -172,7 +172,7 @@ Customer[id=3, firstName='Kim', lastName='Bauer']
 Customer[id=4, firstName='David', lastName='Palmer']
 Customer[id=5, firstName='Michelle', lastName='Dessler']
 
-== Customer found with findOne(1L):
+== Customer found with findById(1L):
 Customer[id=1, firstName='Jack', lastName='Bauer']
 
 == Customer found with findByLastName('Bauer'):
