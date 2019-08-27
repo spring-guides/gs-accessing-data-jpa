@@ -113,8 +113,6 @@ Now you can wire up this example and see what it looks like!
 
 == Create an Application Class
 
-{JB: Account for the application class that the Initialzr created.}
-
 Spring Initializr creates a simple class for the application. The following listing shows
 the class that Initializr created for this example (in
 `src/main/java/com/example/accessingdatajpa/AccessingDataJpaApplication.java`):
