@@ -1,5 +1,4 @@
-// tag::sample[]
-package hello;
+package com.example.accessingdatajpa;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,8 +28,6 @@ public class Customer {
                 id, firstName, lastName);
     }
 
-// end::sample[]
-
 	public Long getId() {
 		return id;
 	}
@@ -43,4 +40,3 @@ public class Customer {
 		return lastName;
 	}
 }
-
