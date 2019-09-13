@@ -2,92 +2,165 @@
 :icons: font
 :source-highlighter: prettify
 :project_id: gs-accessing-data-jpa
+
 This guide walks you through the process of building an application that uses Spring Data JPA to store and retrieve data in a relational database.
 
-== What you'll build
+== What You Will build
 
-You'll build an application that stores `Customer` link:/understanding/POJO[POJOs] in a memory-based database.
+You will build an application that stores `Customer` POJOs (Plain Old Java Objects) in a memory-based database.
 
-== What you'll need
+== What You need
 
 :java_version: 1.8
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/prereq_editor_jdk_buildtools.adoc[]
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/how_to_complete_this_guide.adoc[]
 
+== Starting with Spring Initializr
 
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/hide-show-gradle.adoc[]
+For all Spring applications, you should start with the https://start.spring.io[Spring
+Initializr]. The Initializr offers a fast way to pull in all the dependencies you need for
+an application and does a lot of the set up for you. This example needs the JPA and H2
+dependencies. The following image shows the Initializr set up for this sample project:
 
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/hide-show-maven.adoc[]
+image::images/initializr.png[]
 
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/hide-show-sts.adoc[]
+NOTE: The preceding image shows the Initializr with Maven chosen as the build tool. You
+can also use Gradle. It also shows values of `com.example` and `accesing-data-jpa` as the
+Group and Artifact, respectively. You will use those values throughout the rest of this sample.
 
+The following listing shows the `pom.xml` file created when you choose Maven:
+
+====
+[src,xml]
+----
+include::complete/pom.xml[]
+----
+====
+
+The following listing shows the `build.gradle` file created when you choose Gradle:
+
+====
+[src,gradle]
+----
+include::complete/build.gradle[]
+----
+====
 
 [[initial]]
-== Define a simple entity
+== Define a Simple Entity
 
-In this example, you store Customer objects, annotated as a JPA entity.
+In this example, you store `Customer` objects, each annotated as a JPA entity. The
+following listing shows the Customer class (in
+	`src/main/java/com/example/accessingdatajpa/Customer.java`):
 
-`src/main/java/hello/Customer.java`
+====
 [source,java,indent=0]
 ----
-include::complete/src/main/java/hello/Customer.java[tag=sample]
-}
+include::complete/src/main/java/com/example/accessingdatajpa/Customer.java[tag=sample]
 ----
+====
 
-Here you have a `Customer` class with three attributes, the `id`, the `firstName`, and the `lastName`. You also have two constructors. The default constructor only exists for the sake of JPA. You won't use it directly, so it is designated as `protected`. The other constructor is the one you'll use to create instances of `Customer` to be saved to the database.
+Here you have a `Customer` class with three attributes: `id`, `firstName`, and `lastName`.
+You also have two constructors. The default constructor exists only for the sake of JPA.
+You do not use it directly, so it is designated as `protected`. The other constructor is
+the one you use to create instances of `Customer` to be saved to the database.
 
-NOTE: In this guide, the typical getters and setters have been left out for brevity.
+The `Customer` class is annotated with `@Entity`, indicating that it is a JPA entity.
+(Because no `@Table` annotation exists, it is assumed that this entity is mapped to a
+	table named `Customer`.)
 
-The `Customer` class is annotated with `@Entity`, indicating that it is a JPA entity. For lack of a `@Table` annotation, it is assumed that this entity will be mapped to a table named `Customer`.
+The `Customer` object's `id` property is annotated with `@Id` so that JPA recognizes it as
+the object's ID. The `id` property is also annotated with `@GeneratedValue` to indicate
+that the ID should be generated automatically.
 
-The `Customer`’s `id` property is annotated with `@Id` so that JPA will recognize it as the object's ID. The `id` property is also annotated with `@GeneratedValue` to indicate that the ID should be generated automatically.
+The other two properties, `firstName` and `lastName`, are left unannotated. It is assumed
+that they are mapped to columns that share the same names as the properties themselves.
 
-The other two properties, `firstName` and `lastName` are left unannotated. It is assumed that they'll be mapped to columns that share the same name as the properties themselves.
+The convenient `toString()` method print outs the customer's properties.
 
-The convenient `toString()` method will print out the customer's properties.
+== Create Simple Queries
 
-== Create simple queries
-Spring Data JPA focuses on using JPA to store data in a relational database. Its most compelling feature is the ability to create repository implementations automatically, at runtime, from a repository interface.
+Spring Data JPA focuses on using JPA to store data in a relational database. Its most
+compelling feature is the ability to create repository implementations automatically, at
+runtime, from a repository interface.
 
-To see how this works, create a repository interface that works with `Customer` entities:
+To see how this works, create a repository interface that works with `Customer` entities
+as the following listing (in `src/main/java/hello/CustomerRepository.java`) shows:
 
-`src/main/java/hello/CustomerRepository.java`
+====
 [source,java]
 ----
 include::complete/src/main/java/hello/CustomerRepository.java[]
 ----
+====
 
-`CustomerRepository` extends the `CrudRepository` interface. The type of entity and ID that it works with,`Customer` and `Long`, are specified in the generic parameters on `CrudRepository`. By extending `CrudRepository`, `CustomerRepository` inherits several methods for working with `Customer` persistence, including methods for saving, deleting, and finding `Customer` entities.
+`CustomerRepository` extends the `CrudRepository` interface. The type of entity and ID
+that it works with, `Customer` and `Long`, are specified in the generic parameters on
+`CrudRepository`. By extending `CrudRepository`, `CustomerRepository` inherits several
+methods for working with `Customer` persistence, including methods for saving, deleting,
+and finding `Customer` entities.
 
-Spring Data JPA also allows you to define other query methods by simply declaring their method signature. In the case of `CustomerRepository`, this is shown with a `findByLastName()` method.
+Spring Data JPA also lets you define other query methods by declaring their method
+signature. For example, `CustomerRepository` includes the `findByLastName()` method.
 
-In a typical Java application, you'd expect to write a class that implements `CustomerRepository`. But that's what makes Spring Data JPA so powerful: You don't have to write an implementation of the repository interface. Spring Data JPA creates an implementation on the fly when you run the application.
+In a typical Java application, you might expect to write a class that implements
+`CustomerRepository`. However, that is what makes Spring Data JPA so powerful: You need
+not write an implementation of the repository interface. Spring Data JPA creates an
+implementation when you run the application.
 
-Let's wire this up and see what it looks like!
+Now you can wire up this example and see what it looks like!
 
-== Create an Application class
-Here you create an Application class with all the components.
+== Create an Application Class
 
-`src/main/java/hello/Application.java`
+Spring Initializr creates a simple class for the application. The following listing shows
+the class that Initializr created for this example (in
+`src/main/java/com/example/accessingdatajpa/AccessingDataJpaApplication.java`):
+
+====
 [source,java]
 ----
-include::complete/src/main/java/hello/Application.java[]
+include::initial/src/main/java/com/example/accessingdatajpa/AccessingDataJpaApplication.java[]
 ----
+====
 
-include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/spring-boot-application.adoc[]
+include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/spring-boot-application-new-path.adoc[]
 
-`Application` includes a `main()` method that puts the `CustomerRepository` through a few tests. First, it fetches the `CustomerRepository` from the Spring application context. Then it saves a handful of `Customer` objects, demonstrating the `save()` method and setting up some data to work with. Next, it calls `findAll()` to fetch all `Customer` objects from the database. Then it calls `findOne()` to fetch a single `Customer` by its ID. Finally, it calls `findByLastName()` to find all customers whose last name is "Bauer".
+Now you need to modify the simple class that the Initializr created for you. To get output
+(to the console, in this example), you need to set up a logger. Then you need to set up
+some data and use it to generate output. The following listing shows the finished
+`AccessingDataJpaApplication` class (in
+`src/main/java/com/example/accessingdatajpa/AccessingDataJpaApplication.java`):
 
-NOTE: By default, Spring Boot will enable JPA repository support and look in the package (and its subpackages) where `@SpringBootApplication` is located. If your configuration has JPA repository interface definitions located in a package not visible, you can point out alternate packages using `@EnableJpaRepositories` and its type-safe `basePackageClasses=MyRepository.class` parameter.
+====
+[source,java]
+----
+include::complete/src/main/java/com/example/accessingdatajpa/AccessingDataJpaApplication.java[]
+----
+====
+
+The `AccessingDataJpaApplication` class includes a `main()` method that puts the
+`CustomerRepository` through a few tests. First, it fetches the `CustomerRepository` from
+the Spring application context. Then it saves a handful of `Customer` objects,
+demonstrating the `save()` method and setting up some data to use. Next, it calls
+`findAll()` to fetch all `Customer` objects from the database. Then it calls `findOne()`
+to fetch a single `Customer` by its ID. Finally, it calls `findByLastName()` to find all
+customers whose last name is "Bauer".
+
+NOTE: By default, Spring Boot enables JPA repository support and looks in the package (and
+	its subpackages) where `@SpringBootApplication` is located. If your configuration has
+	JPA repository interface definitions located in a package that is not visible, you can
+	point out alternate packages by using `@EnableJpaRepositories` and its type-safe
+	`basePackageClasses=MyRepository.class` parameter.
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/build_an_executable_jar_mainhead.adoc[]
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/master/build_an_executable_jar_with_both.adoc[]
 
+When you run your application, you should see output similar to the following:
 
-You should see something like this:
-....
+====
+----
 == Customers found with findAll():
 Customer[id=1, firstName='Jack', lastName='Bauer']
 Customer[id=2, firstName='Chloe', lastName='O'Brian']
@@ -101,17 +174,23 @@ Customer[id=1, firstName='Jack', lastName='Bauer']
 == Customer found with findByLastName('Bauer'):
 Customer[id=1, firstName='Jack', lastName='Bauer']
 Customer[id=3, firstName='Kim', lastName='Bauer']
-....
+----
+====
 
 == Summary
-Congratulations! You've written a simple application that uses Spring Data JPA to save objects to a database and to fetch them -- all without writing a concrete repository implementation.
 
-NOTE: If you're interested in exposing JPA repositories with a hypermedia-based RESTful front end with little effort, you might want to read link:/guides/gs/accessing-data-rest[Accessing JPA Data with REST].
+Congratulations! You have written a simple application that uses Spring Data JPA to save
+objects to and fetch them from a database, all without writing a concrete repository
+implementation.
+
+NOTE: If you want to expose JPA repositories with a hypermedia-based RESTful front end
+with little effort, you might want to read link:/guides/gs/accessing-data-rest[Accessing JPA Data with REST].
 
 == See Also
 
 The following guides may also be helpful:
 
+* https://spring.io/guides/gs/accessing-data-rest[Accessing JPA Data with REST]
 * https://spring.io/guides/gs/accessing-data-gemfire/[Accessing Data with Gemfire]
 * https://spring.io/guides/gs/accessing-data-mongodb/[Accessing Data with MongoDB]
 * https://spring.io/guides/gs/accessing-data-mysql/[Accessing data with MySQL]
