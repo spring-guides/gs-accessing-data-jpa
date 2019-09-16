@@ -57,7 +57,7 @@ following listing shows the Customer class (in
 ====
 [source,java,indent=0]
 ----
-include::complete/src/main/java/com/example/accessingdatajpa/Customer.java[tag=sample]
+include::complete/src/main/java/com/example/accessingdatajpa/Customer.java[]
 ----
 ====
 
@@ -86,12 +86,12 @@ compelling feature is the ability to create repository implementations automatic
 runtime, from a repository interface.
 
 To see how this works, create a repository interface that works with `Customer` entities
-as the following listing (in `src/main/java/hello/CustomerRepository.java`) shows:
+as the following listing (in `src/main/java/com/example/accessingdatajpa/CustomerRepository.java`) shows:
 
 ====
 [source,java]
 ----
-include::complete/src/main/java/hello/CustomerRepository.java[]
+include::complete/src/main/java/com/example/accessingdatajpa/CustomerRepository.java[]
 ----
 ====
 
