@@ -1,4 +1,5 @@
 :toc:
+:tabsize: 4
 :icons: font
 :source-highlighter: prettify
 :project_id: gs-accessing-data-jpa
