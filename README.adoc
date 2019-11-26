@@ -57,7 +57,7 @@ following listing shows the Customer class (in
 	`src/main/java/com/example/accessingdatajpa/Customer.java`):
 
 ====
-[source,java,indent=0]
+[source,java,tabsize=2,indent=0]
 ----
 include::complete/src/main/java/com/example/accessingdatajpa/Customer.java[]
 ----
@@ -91,7 +91,7 @@ To see how this works, create a repository interface that works with `Customer` 
 as the following listing (in `src/main/java/com/example/accessingdatajpa/CustomerRepository.java`) shows:
 
 ====
-[source,java]
+[source,java,tabsize=2]
 ----
 include::complete/src/main/java/com/example/accessingdatajpa/CustomerRepository.java[]
 ----
@@ -120,7 +120,7 @@ the class that Initializr created for this example (in
 `src/main/java/com/example/accessingdatajpa/AccessingDataJpaApplication.java`):
 
 ====
-[source,java]
+[source,java,tabsize=2]
 ----
 include::initial/src/main/java/com/example/accessingdatajpa/AccessingDataJpaApplication.java[]
 ----
@@ -135,7 +135,7 @@ some data and use it to generate output. The following listing shows the finishe
 `src/main/java/com/example/accessingdatajpa/AccessingDataJpaApplication.java`):
 
 ====
-[source,java]
+[source,java,tabsize=2]
 ----
 include::complete/src/main/java/com/example/accessingdatajpa/AccessingDataJpaApplication.java[]
 ----
