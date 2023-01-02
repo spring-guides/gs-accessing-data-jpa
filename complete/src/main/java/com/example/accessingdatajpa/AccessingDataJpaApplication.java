@@ -29,9 +29,9 @@ public class AccessingDataJpaApplication {
 			// fetch all customers
 			log.info("Customers found with findAll():");
 			log.info("-------------------------------");
-			for (Customer customer : repository.findAll()) {
+			repository.findAll().forEach(customer -> {
 				log.info(customer.toString());
-			}
+			});
 			log.info("");
 
 			// fetch an individual customer by ID
@@ -47,9 +47,6 @@ public class AccessingDataJpaApplication {
 			repository.findByLastName("Bauer").forEach(bauer -> {
 				log.info(bauer.toString());
 			});
-			// for (Customer bauer : repository.findByLastName("Bauer")) {
-			// 	log.info(bauer.toString());
-			// }
 			log.info("");
 		};
 	}
