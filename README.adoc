@@ -12,7 +12,6 @@ You will build an application that stores `Customer` POJOs (Plain Old Java Objec
 
 == What You need
 
-:java_version: 1.8
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/prereq_editor_jdk_buildtools.adoc[]
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/how_to_complete_this_guide.adoc[]
@@ -20,7 +19,7 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 [[scratch]]
 == Starting with Spring Initializr
 
-You can use this https://start.spring.io/#!type=maven-project&language=java&platformVersion=2.5.5&packaging=jar&jvmVersion=11&groupId=com.example&artifactId=accessing-data-jpa&name=accessing-data-jpa&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.accessing-data-jpa&dependencies=data-jpa,h2[pre-initialized project] and click Generate to download a ZIP file. This project is configured to fit the examples in this tutorial.
+You can use this https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.0.1&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=accessing-data-jpa&name=accessing-data-jpa&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.accessing-data-jpa&dependencies=data-jpa,h2[pre-initialized project] and click Generate to download a ZIP file. This project is configured to fit the examples in this tutorial.
 
 To manually initialize the project:
 
