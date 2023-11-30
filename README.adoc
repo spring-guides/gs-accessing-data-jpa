@@ -6,7 +6,7 @@
 
 This guide walks you through the process of building an application that uses Spring Data JPA to store and retrieve data in a relational database.
 
-== What You Will build
+== What You Will Build
 
 You will build an application that stores `Customer` POJOs (Plain Old Java Objects) in a memory-based database.
 
