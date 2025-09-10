@@ -8,7 +8,7 @@ This guide walks you through the process of building an application that uses Sp
 
 == What You Will Build
 
-You will build an application that stores `Customer` POJOs (Plain Old Java Objects) in a memory-based database.
+You will build an application that stores `Customer` objects in a memory-based database.
 
 == What You need
 
@@ -19,32 +19,37 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 [[scratch]]
 == Starting with Spring Initializr
 
-You can use this https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.1.5&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=accessing-data-jpa&name=accessing-data-jpa&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.accessing-data-jpa&dependencies=data-jpa,h2[pre-initialized project] and click Generate to download a ZIP file. This project is configured to fit the examples in this tutorial.
+You can use this https://start.spring.io/#!type=maven-project&platformVersion=3.5.5&packaging=jar&jvmVersion=17&groupId=com.example&artifactId=accessing-data-jpa&name=accessing-data-jpa&description=Demo%20project%20for%20Spring%20Boot&packageName=com.example.accessingdatajpa&dependencies=data-jpa,h2[pre-initialized project] and click Generate to download a ZIP file. This project is configured to fit the examples in this tutorial.
 
 To manually initialize the project:
 
 . Navigate to https://start.spring.io.
 This service pulls in all the dependencies you need for an application and does most of the setup for you.
-. Choose either Gradle or Maven and the language you want to use. This guide assumes that you chose Java.
+. Choose either Gradle or Maven and the language you want to use.
 . Click *Dependencies* and select *Spring Data JPA* and then *H2 Database*.
 . Click *Generate*.
 . Download the resulting ZIP file, which is an archive of a web application that is configured with your choices.
 
 NOTE: If your IDE has the Spring Initializr integration, you can complete this process from your IDE.
 
-NOTE: You can also fork the project from Github and open it in your IDE or other editor.
+NOTE: You can also fork the project from GitHub and open it in your IDE or other editor.
 
 [[initial]]
 == Define a Simple Entity
 
 In this example, you store `Customer` objects, each annotated as a JPA entity. The
-following listing shows the Customer class (in
-	`src/main/java/com/example/accessingdatajpa/Customer.java`):
+following listing shows the Customer class:
 
 ====
-[source,java,tabsize=2,indent=0]
+[source,java,indent=0,subs="verbatim,quotes",role="primary"]
+.Java
 ----
 include::complete/src/main/java/com/example/accessingdatajpa/Customer.java[]
+----
+[source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
+.Kotlin
+----
+include::complete-kotlin/src/main/kotlin/com/example/accessingdatajpa/Customer.kt[]
 ----
 ====
 
@@ -64,7 +69,7 @@ that the ID should be generated automatically.
 The other two properties, `firstName` and `lastName`, are left unannotated. It is assumed
 that they are mapped to columns that share the same names as the properties themselves.
 
-The convenient `toString()` method print outs the customer's properties.
+The convenient `toString()` method prints out the customer's properties.
 
 == Create Simple Queries
 
@@ -73,12 +78,18 @@ compelling feature is the ability to create repository implementations automatic
 runtime, from a repository interface.
 
 To see how this works, create a repository interface that works with `Customer` entities
-as the following listing (in `src/main/java/com/example/accessingdatajpa/CustomerRepository.java`) shows:
+as the following listing shows:
 
 ====
-[source,java,tabsize=2]
+[source,java,indent=0,subs="verbatim,quotes",role="primary"]
+.Java
 ----
 include::complete/src/main/java/com/example/accessingdatajpa/CustomerRepository.java[]
+----
+[source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
+.Kotlin
+----
+include::complete-kotlin/src/main/kotlin/com/example/accessingdatajpa/CustomerRepository.kt[]
 ----
 ====
 
@@ -101,13 +112,18 @@ Now you can wire up this example and see what it looks like!
 == Create an Application Class
 
 Spring Initializr creates a simple class for the application. The following listing shows
-the class that Initializr created for this example (in
-`src/main/java/com/example/accessingdatajpa/AccessingDataJpaApplication.java`):
+the class that Initializr created for this example:
 
 ====
-[source,java,tabsize=2]
+[source,java,indent=0,subs="verbatim,quotes",role="primary"]
+.Java
 ----
 include::initial/src/main/java/com/example/accessingdatajpa/AccessingDataJpaApplication.java[]
+----
+[source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
+.Kotlin
+----
+include::initial-kotlin/src/main/kotlin/com/example/accessingdatajpa/AccessingDataJpaApplication.kt[]
 ----
 ====
 
@@ -116,13 +132,18 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 Now you need to modify the simple class that the Initializr created for you. To get output
 (to the console, in this example), you need to set up a logger. Then you need to set up
 some data and use it to generate output. The following listing shows the finished
-`AccessingDataJpaApplication` class (in
-`src/main/java/com/example/accessingdatajpa/AccessingDataJpaApplication.java`):
+`AccessingDataJpaApplication` class:
 
 ====
-[source,java,tabsize=2]
+[source,java,indent=0,subs="verbatim,quotes",role="primary"]
+.Java
 ----
 include::complete/src/main/java/com/example/accessingdatajpa/AccessingDataJpaApplication.java[]
+----
+[source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
+.Kotlin
+----
+include::complete-kotlin/src/main/kotlin/com/example/accessingdatajpa/AccessingDataJpaApplication.kt[]
 ----
 ====
 
