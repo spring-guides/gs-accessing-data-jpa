@@ -32,7 +32,3 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-tasks.wrapper {
-    gradleVersion = "8.14.3"
-    distributionType = Wrapper.DistributionType.BIN
-}

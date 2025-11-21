@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
 
+private val logger = LoggerFactory.getLogger(AccessingDataJpaApplication::class.java)
+
 @SpringBootApplication
 class AccessingDataJpaApplication {
-
-    private val log = LoggerFactory.getLogger(javaClass)
 
     @Bean
     fun demo(repository: CustomerRepository) = CommandLineRunner {
@@ -25,27 +25,27 @@ class AccessingDataJpaApplication {
         )
 
         // fetch all customers
-        log.info("Customers found with findAll():")
-        log.info("-------------------------------")
+        logger.info("Customers found with findAll():")
+        logger.info("-------------------------------")
         repository.findAll().forEach { customer ->
-            log.info(customer.toString())
+            logger.info(customer.toString())
         }
-        log.info("")
+        logger.info("")
 
         // fetch an individual customer by ID
         val customer = repository.findById(1L).orElseThrow()
-        log.info("Customer found with findById(1L):")
-        log.info("--------------------------------")
-        log.info(customer.toString())
-        log.info("")
+        logger.info("Customer found with findById(1L):")
+        logger.info("--------------------------------")
+        logger.info(customer.toString())
+        logger.info("")
 
         // fetch customers by last name
-        log.info("Customer found with findByLastName('Bauer'):")
-        log.info("--------------------------------------------")
+        logger.info("Customer found with findByLastName('Bauer'):")
+        logger.info("--------------------------------------------")
         repository.findByLastName("Bauer").forEach { bauer ->
-            log.info(bauer.toString())
+            logger.info(bauer.toString())
         }
-        log.info("")
+        logger.info("")
     }
 }
 
