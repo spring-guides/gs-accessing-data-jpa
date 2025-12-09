@@ -1,1 +1,1 @@
-rootProject.name = "accessing-data-jpa"
+rootProject.name = "accessing-data-jpa-complete"
