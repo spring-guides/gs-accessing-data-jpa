@@ -23,8 +23,8 @@ import org.springframework.boot.jpa.test.autoconfigure.TestEntityManager
 
 @DataJpaTest
 class CustomerRepositoryTests @Autowired constructor(
-    val entityManager: TestEntityManager,
-    val customers: CustomerRepository
+    private val entityManager: TestEntityManager,
+    private val customers: CustomerRepository
 ) {
 
     @Test
