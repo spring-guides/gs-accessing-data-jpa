@@ -13,7 +13,7 @@ public class AccessingDataJpaApplication {
 	private static final Logger logger = LoggerFactory.getLogger(AccessingDataJpaApplication.class);
 
 	public static void main(String[] args) {
-		SpringApplication.run(AccessingDataJpaApplication.class,args);
+		SpringApplication.run(AccessingDataJpaApplication.class, args);
 	}
 
 	@Bean
