@@ -164,17 +164,17 @@ When you run your application, you should see output similar to the following:
 
 ====
 ----
-== Customers found with findAll():
+Customers found with findAll():
 Customer[id=1, firstName='Jack', lastName='Bauer']
 Customer[id=2, firstName='Chloe', lastName='O'Brian']
 Customer[id=3, firstName='Kim', lastName='Bauer']
 Customer[id=4, firstName='David', lastName='Palmer']
 Customer[id=5, firstName='Michelle', lastName='Dessler']
 
-== Customer found with findById(1L):
+Customer found with findById(1L):
 Customer[id=1, firstName='Jack', lastName='Bauer']
 
-== Customer found with findByLastName('Bauer'):
+Customer found with findByLastName('Bauer'):
 Customer[id=1, firstName='Jack', lastName='Bauer']
 Customer[id=3, firstName='Kim', lastName='Bauer']
 ----
@@ -193,7 +193,7 @@ with little effort, you might want to read link:/guides/gs/accessing-data-rest[A
 
 The following guides may also be helpful:
 
-* https://spring.io/guides/gs/accessing-data-rest[Accessing JPA Data with REST]
+* https://spring.io/guides/gs/accessing-data-rest/[Accessing JPA Data with REST]
 * https://spring.io/guides/gs/accessing-data-gemfire/[Accessing Data with Gemfire]
 * https://spring.io/guides/gs/accessing-data-mongodb/[Accessing Data with MongoDB]
 * https://spring.io/guides/gs/accessing-data-mysql/[Accessing data with MySQL]
